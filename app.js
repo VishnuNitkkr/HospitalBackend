@@ -14,21 +14,18 @@ const app = express();
 
 config({ path: "./config/config.env" });
 
-const allowedOrigins = ['https://hospital-frontend-snowy.vercel.app', 'https://hospital-dashboard-taupe.vercel.app'];
+
 
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+  res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Origin, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // If you need to send cookies
   next();
 });
 
 app.use(cors({
-  origin: ['https://hospital-frontend-snowy.vercel.app', 'https://hospital-dashboard-taupe.vercel.app'],
+  origin: '*',
   methods: ['GET, POST, PUT, DELETE'],
   credentials: true,
   
