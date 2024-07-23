@@ -14,7 +14,7 @@ const app = express();
 
 config({ path: "./config/config.env" });
 
-const allowedOrigins = [process.env.FRONTEND_URL, process.env.DASHBOARD_URL];
+const allowedOrigins = ['https://hospital-frontend-snowy.vercel.app', 'https://hospital-dashboard-taupe.vercel.app'];
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
+  origin: ['https://hospital-frontend-snowy.vercel.app', 'https://hospital-dashboard-taupe.vercel.app'],
   methods: ['GET, POST, PUT, DELETE'],
   credentials: true,
   
