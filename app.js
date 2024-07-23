@@ -18,7 +18,7 @@ config({ path: "./config/config.env" });
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Origin, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // If you need to send cookies
   next();
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 app.use(cors({
   origin: '*',
-  methods: ['GET, POST, PUT, DELETE'],
+  methods: ['GET, POST, PUT, DELETE,OPTIONS'],
   credentials: true,
   
 }));
