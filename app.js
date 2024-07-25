@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
-
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
@@ -14,8 +13,6 @@ import session from "express-session";
 const app = express();
 
 config({ path: "./config/config.env" });
-
-
 
 const allowedOrigins = ['https://hospital-frontend-snowy.vercel.app', 'https://hospital-dashboard-taupe.vercel.app'];
 
@@ -38,7 +35,7 @@ app.use((req, res, next) => {
   }
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Origin, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true"); // If you need to send cookies
+  res.setHeader("Access-Control-Allow-Credentials", "true"); // Allows cookies to be sent
   next();
 });
 
@@ -47,25 +44,21 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-      secure: true, // Ensures the cookie is only used over HTTPS
+      secure: process.env.NODE_ENV === 'production', // Ensure HTTPS in production
       sameSite: 'None', // Allows cross-origin cookies
       httpOnly: true,
-      maxAge: 60000 // Adjust the maxAge as needed
+      maxAge: 60000 // Adjust based on your needs
   }
 }));
-
-
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/tmp/",
-  })
-);
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: "/tmp/",
+}));
 
 app.use("/api/v1/message", messageRouter);
 app.use("/api/v1/user", userRouter);
