@@ -41,6 +41,19 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(session({
+  secret: 'your-secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      secure: true, // Ensures the cookie is only used over HTTPS
+      sameSite: 'None', // Allows cross-origin cookies
+      httpOnly: true,
+      maxAge: 60000 // Adjust the maxAge as needed
+  }
+}));
+
+
 
 app.use(cookieParser());
 app.use(express.json());
