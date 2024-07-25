@@ -5,10 +5,11 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
-const session = require('express-session');
+
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
+import session from "express-session";
 
 const app = express();
 
