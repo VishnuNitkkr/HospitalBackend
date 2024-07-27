@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: mongoose.Schema.Types.Date,
-    required: [true, "date OfBirth is required!"],
+    required: [true, "date Of Birth is required!"],
   },
   password: {
     type: mongoose.Schema.Types.String,
