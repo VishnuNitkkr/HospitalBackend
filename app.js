@@ -8,7 +8,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
-import session from "express-session";
+
 
 const app = express();
 
@@ -39,17 +39,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(session({
-  secret: process.env.JWT_SECRET_KEY,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-      secure: process.env.NODE_ENV === 'production', // Ensure HTTPS in production
-      sameSite: 'None', // Allows cross-origin cookies
-      httpOnly: true,
-      
-  }
-}));
 
 app.use(cookieParser());
 app.use(express.json());
