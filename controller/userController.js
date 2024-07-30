@@ -13,7 +13,8 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
     password,
     gender,
     dateOfBirth,
-    aadhar
+    aadhar,
+    role
   } = req.body;
   console.log(req.body);
   if (
@@ -24,7 +25,8 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
     !password ||
     !gender ||
     !dateOfBirth ||
-    !aadhar 
+    !aadhar||
+    !role 
   ) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
@@ -43,7 +45,7 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
     gender,
     dateOfBirth,
     aadhar,
-    role:"Patient",
+    role,
   });
 
   generateToken(user, "User Registered", 200, res);
