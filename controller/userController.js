@@ -140,9 +140,11 @@ export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
 export const logoutAdmin = catchAsyncErrors(async (req, res, next) => {
   res
     .status(200)
-    .cookie("adminToken", "", {
+    .clearCookie("adminToken", {
       httpOnly: true,
-      expires: new Date(Date.now()),
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
+      path: '/',
     })
     .json({
       success: true,
@@ -153,15 +155,18 @@ export const logoutAdmin = catchAsyncErrors(async (req, res, next) => {
 export const logoutPatient = catchAsyncErrors(async (req, res, next) => {
   res
     .status(200)
-    .cookie("patientToken", "", {
+    .clearCookie("patientToken", {
       httpOnly: true,
-      expires: new Date(0),
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
+      path: '/',
     })
     .json({
       success: true,
       message: "Patient Logged Out Successfully!",
     });
 });
+
 
 export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
   if (!req.files || Object.keys(req.files).length === 0) {
